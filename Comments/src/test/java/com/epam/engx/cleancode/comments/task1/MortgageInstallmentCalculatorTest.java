@@ -4,6 +4,7 @@ import com.epam.engx.cleancode.comments.task1.thirdpartyjar.InvalidInputExceptio
 import org.junit.Assert;
 import org.junit.Test;
 
+
 public class MortgageInstallmentCalculatorTest {
     @Test
     public void shouldCalculateMonthlyPaymentWhenAmountsAreSmall() throws Exception {

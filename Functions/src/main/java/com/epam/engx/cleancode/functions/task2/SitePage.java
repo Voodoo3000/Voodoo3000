@@ -1,15 +1,12 @@
 package com.epam.engx.cleancode.functions.task2;
 
-
 import java.util.Map;
-
 
 public class SitePage {
 
     private static final String HTTP = "http://";
     private static final String EDITABLE = "/?edit=true";
     private static final String DOMAIN = "mysite.com";
-
 
     private String siteGroup;
     private String userGroup;
@@ -21,9 +18,16 @@ public class SitePage {
 
     public String getEditablePageUrl(Map<String, String> params) {
         String paramsString = "";
-        for (Map.Entry<String, String> param : params.entrySet())
-            paramsString += "&" + param.getKey() + "=" + param.getValue();
+        paramsString = getBuiltParamsString(params, paramsString);
         return HTTP + DOMAIN + EDITABLE + paramsString + getAttributes();
+    }
+
+    private String getBuiltParamsString(Map<String, String> params, String paramsString) {
+        StringBuilder paramsStringBuilder = new StringBuilder(paramsString);
+        for (Map.Entry<String, String> param : params.entrySet())
+            paramsStringBuilder.append("&").append(param.getKey()).append("=").append(param.getValue());
+        paramsString = paramsStringBuilder.toString();
+        return paramsString;
     }
 
     private String getAttributes() {
@@ -37,8 +41,6 @@ public class SitePage {
     public String getSiteGroup() {
         return siteGroup;
     }
-
-
 
 
 }

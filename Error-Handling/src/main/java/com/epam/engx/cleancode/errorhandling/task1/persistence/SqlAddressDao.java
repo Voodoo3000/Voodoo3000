@@ -13,14 +13,24 @@ public class SqlAddressDao implements AddressDao {
 
     SqlService sqlService;
 
-    public Address getHomeAddress(String userId) throws SQLException {
-        return new Address(sqlService.queryUserHomeAddress(userId));
+    public Address getHomeAddress(String userId) throws DAOException {
+        Address address;
+        try {
+            address = (Address) sqlService.queryUserHomeAddress(userId);
+        } catch (SQLException e) {
+            throw new DAOException("Get home address SQLException", e);
+        }
+        return address;
     }
 
-    public List<Address> getDeliveryAddresses(String userId) throws SQLException {
+    public List<Address> getDeliveryAddresses(String userId) throws DAOException {
         List<Address> addresses = new ArrayList<Address>();
-        for (Map addressData : sqlService.queryUserDeliveryAddress(userId))
-            addresses.add(new Address(addressData));
+        try {
+            for (Map addressData : sqlService.queryUserDeliveryAddress(userId))
+                addresses.add(new Address(addressData));
+        } catch (SQLException e) {
+            throw new DAOException("Get delivery addresses SQLException", e);
+        }
         return addresses;
     }
 }

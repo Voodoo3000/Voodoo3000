@@ -1,7 +1,5 @@
 package com.epam.engx.cleancode.complextask.task1;
 
-
-
 import com.epam.engx.cleancode.complextask.task1.thirdpartyjar.Command;
 import com.epam.engx.cleancode.complextask.task1.thirdpartyjar.DataSet;
 import com.epam.engx.cleancode.complextask.task1.thirdpartyjar.View;
@@ -9,14 +7,13 @@ import com.epam.engx.cleancode.complextask.task1.thirdpartyjar.DatabaseManager;
 
 import java.util.List;
 
-
-public class Print implements Command {
+public class Printer implements Command {
 
     private View view;
     private DatabaseManager manager;
     private String tableName;
 
-    public Print(View view, DatabaseManager manager) {
+    public Printer(View view, DatabaseManager manager) {
         this.view = view;
         this.manager = manager;
     }
@@ -73,10 +70,9 @@ public class Print implements Command {
             for (DataSet dataSet : dataSets) {
                 List<Object> values = dataSet.getValues();
                 for (Object value : values) {
-//                    if (value instanceof String)
-                        if (String.valueOf(value).length() > maxLength) {
-                            maxLength = String.valueOf(value).length();
-                        }
+                    if (String.valueOf(value).length() > maxLength) {
+                        maxLength = String.valueOf(value).length();
+                    }
                 }
             }
         }

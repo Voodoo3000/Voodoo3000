@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class AccountDetails {
+
     private Date birth;
     private int age;
     private BigDecimal balance;

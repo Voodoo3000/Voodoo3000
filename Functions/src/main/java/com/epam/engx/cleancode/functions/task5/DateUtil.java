@@ -5,15 +5,26 @@ import java.util.Date;
 
 public class DateUtil {
 
+	private Calendar calendar = Calendar.getInstance();
+
 	public Date changeToMidnight(Date date, boolean up) {
-		Calendar calendar = Calendar.getInstance();
+		setParametersToCalendar(date);
+		addDateToCalendar(up);
+		return calendar.getTime();
+	}
+
+	private void setParametersToCalendar(Date date) {
 		calendar.setTime(date);
-		calendar.add(Calendar.DATE, up ? 1 : -1);
 		calendar.set(Calendar.HOUR_OF_DAY, 0);
 		calendar.set(Calendar.MINUTE, 0);
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
-		return calendar.getTime();
 	}
 
+	private void addDateToCalendar(boolean up) {
+		int num;
+		if(up) num = 1;
+		else num = -1;
+		calendar.add(Calendar.DATE, num);
+	}
 }

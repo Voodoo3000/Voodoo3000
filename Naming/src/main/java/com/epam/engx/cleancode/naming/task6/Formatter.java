@@ -5,25 +5,25 @@ public class Formatter {
     private static final String PLUS = "+";
     private static final String PIPE = "|";
     private static final String MINUS = "-";
-    private static final String UNDERSCORE = " _ ";
+    private static final String UNDERSCORE = "_";
 
     public static void main(String[] args) {
-        System.out.println(formatKyeValue("enable", "true"));
-        System.out.println(formatKyeValue("name", "Bob"));
+        System.out.println(outputKeyAndValueInCell("enable", "true"));
+        System.out.println(outputKeyAndValueInCell("name", "Bob"));
     }
 
-    private static String formatKyeValue(String key, String value) {
+    private static String outputKeyAndValueInCell(String key, String value) {
         String content = key + UNDERSCORE + value;
-        String minuses = repeat(MINUS, content.length());
+        String minuses = buildCellTopAndBottom(content.length());
         return PLUS +  minuses + PLUS + "\n"
                 + PIPE + content + PIPE + "\n" +
                 PLUS + minuses + PLUS + "\n";
     }
 
-    private static String repeat(String symbol, int times) {
-        String result = "";
+    private static String buildCellTopAndBottom(int times) {
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < times; i++)
-            result += symbol;
-        return result;
+            result.append(Formatter.MINUS);
+        return result.toString();
     }
 }

@@ -1,18 +1,18 @@
 package com.epam.engx.cleancode.errorhandling.task1;
 
+import com.epam.engx.cleancode.errorhandling.task1.persistence.DAOException;
 import com.epam.engx.cleancode.errorhandling.task1.thirdpartyjar.Address;
 
-import java.sql.SQLException;
 import java.util.List;
 
-public class User {
+public class AddressAction {
 
     private AddressDao addressDao;
     private OrderDao orderDao;
     private String userId;
     private Address defaultAddress;
 
-    public Address getPreferredAddress() {
+    public Address getPreferredAddress() throws ActionException {
         try {
             List<Address> deliveryAddresses = addressDao.getDeliveryAddresses(userId);
             List<Address> orderAddresses = orderDao.getOrderAddresses(userId);
@@ -20,10 +20,11 @@ public class User {
                 return deliveryAddresses.get(0);
             else if (!orderAddresses.isEmpty())
                 return orderAddresses.get(orderAddresses.size() - 1);
-            else
+            else if (addressDao.getHomeAddress(userId) != null)
                 return addressDao.getHomeAddress(userId);
-        } catch (SQLException e) {
-            return defaultAddress;
+            else return defaultAddress;
+        } catch (DAOException e) {
+            throw new ActionException("DAOException in get preferred address", e);
         }
     }
 
